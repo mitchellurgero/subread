@@ -26,12 +26,12 @@ if(file_exists($file)){
 	if(file_exists($file)){
 		$data = json_decode(file_get_contents($file), true);
 	} else {
-		echo "<h3>Failed to grab data for this subreddit!</h3>";
+		echo "<h3>".$t["fail.grabdata"]."</h3>";
 	}
 }
 $posts = $data["data"]["children"];
 ?>
-<p>Subreddit data updated on <?php echo date('Y-m-d h:i',filemtime($file)) ?> &nbsp;&nbsp;|&nbsp;&nbsp; <?php echo count($posts); ?> posts available.</p>
+<p><?= sprintf($t["dataupdated"],date($t["date"],filemtime($file)),count($posts)) ?></p>
 <div class="row">
 <?php
 $i = 0;
@@ -64,18 +64,18 @@ foreach($posts as $post){
 								}
 							}elseif($post['data']['spoiler'] == true){
 								?>
-								<span class="badge badge-danger">Spoiler Alert!</span>
+								<span class="badge badge-danger"><?= $t["spoilerAlert"] ?></span>
 								<?php
 							}
 							?>
-							<p><a class="align-bottom" target="_blank" href="https://reddit.com<?php echo $post['data']['permalink'];?>">Permalink</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="align-bottom" target="_blank" href="<?php echo $post['data']['url'];?>">External URL</a></p>
+							<p><a class="align-bottom" target="_blank" href="https://reddit.com<?php echo $post['data']['permalink'];?>">Permalink</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="align-bottom" target="_blank" href="<?php echo $post['data']['url'];?>"><?= $t["externalURL"] ?></a></p>
 							</center>
 							<br>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="card-footer">Posted <?php echo date('Y-m-d h:i',$post['data']['created_utc']);?></div>
+			<div class="card-footer"><?= sprintf($t["posted"],date($t["date"],$post['data']['created_utc']));?></div>
 		</div>
 	</div>
 	<?php

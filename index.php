@@ -1,7 +1,7 @@
 <?php
 define("SUBREAD", TRUE);
 require_once(__DIR__."/config.php");
-
+$t = json_decode(file_get_contents(__DIR__."/lang/".$config["lang"].".json"),true);
 //User timezone detection
 $ip     = $_SERVER['REMOTE_ADDR'];
 $json   = file_get_contents( 'http://ip-api.com/json/' . $ip);
@@ -13,20 +13,21 @@ if ($ipData['timezone']) {
 } else {
    // we can't determine a timezone - do something else...
 }
-
 body();
 
 function head(){
+  global $t;
+  global $config;
 	echo '';
 	?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= $config["lang"] ?>">
 
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>SubRead | A Subreddit Alternative</title>
+  <title><?= $t["html.title"] ?></title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -44,6 +45,7 @@ function head(){
 
 function body(){
 	global $config;
+	global $t;
 	$subreddit = "";
 	if($_GET['r']){
 		$subreddit = strtolower($_GET['r']);
@@ -73,7 +75,7 @@ function body(){
               <span class="badge badge-primary ml-1">New</span>
             </a>
           </li>-->
-          Currently browsing &nbsp;<b>r/<?php echo $subreddit;?></b>
+          <?= sprintf($t["currentlyBrowsing"],$subreddit) ?>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
 			
@@ -92,33 +94,33 @@ function body(){
             <div class="nav-link">
               <div class="user-wrapper">
                 <div class="text-wrapper">
-                  <p class="profile-name">Welcome to SubRead!</p>
+                  <p class="profile-name"><?= $t["welcome"] ?></p>
                 </div>
               </div>
             </div>
           </li>
           <li class="nav-item">
             <div class="container-fluid">
-            	<p>SubRead is a simple webapp to view your favorite subreddits! It uses reddit's simple API and caches the data to be read on demand without going to reddit everytime.</p>
+            	<p><?= $t["welcome.desc"] ?>
             </div>
           </li>
           <li class="nav-item">
           	<a class="nav-link" href="?r=<?php echo $subreddit; ?>&force">
               <i class="menu-icon mdi mdi-refresh"></i>
-              <span class="menu-title">Force Refresh</span>
+              <span class="menu-title"><?= $t["ForceRefresh"] ?></span>
 			</a>
           </li>
           <li class="nav-item">
           	<a class="nav-link" href="#" data-toggle="modal" data-target="#subreddit">
               <i class="menu-icon mdi mdi-link"></i>
-              <span class="menu-title">Select Subreddit</span>
+              <span class="menu-title"><?= $t["SelectSubreddit"] ?></span>
 			</a>
           </li>
           <br>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#subreddits" aria-expanded="false" aria-controls="subreddits">
               <i class="menu-icon mdi mdi-content-copy"></i>
-              <span class="menu-title">Cached Subreddits</span>
+              <span class="menu-title"><?= $t["CachedSubreddits"] ?></span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="subreddits">
@@ -180,7 +182,7 @@ function body(){
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Select a Subreddit</h4>
+        <h4 class="modal-title"><?= $t["SelectSubreddit"] ?></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -193,7 +195,7 @@ function body(){
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><?= $t["close"] ?></button>
       </div>
 
     </div>
