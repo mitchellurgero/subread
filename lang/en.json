@@ -1,0 +1,16 @@
+{
+  "html.title":"SubRead | A Subreddit Alternative",
+  "currentlyBrowsing":"Currently browsing &nbsp;<b>r/%s</b>",
+  "welcome":"Welcome to SubRead!",
+  "welcome.desc":"SubRead is a simple webapp to view your favorite subreddits! It uses reddit's simple API and caches the data to be read on demand without going to reddit everytime.",
+  "ForceRefresh":"Force Refresh",
+  "SelectSubreddit":"Select Subreddit",
+  "CachedSubreddits":"Cached Subreddits",
+  "close":"Close",
+  "fail.grabdata":"Failed to grab data for this subreddit!",
+  "date":"Y-m-d h:i",
+  "dataupdated":"Subreddit data updated on %s &nbsp;&nbsp;|&nbsp;&nbsp; %d posts available.",
+  "spoilerAlert":"Spoiler Alert!",
+  "externalURL":"External URL",
+  "posted":"Posted %s"
+}
